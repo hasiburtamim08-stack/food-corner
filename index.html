@@ -5,41 +5,128 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Food Corner - Bauphal</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#FFF8F0;padding-bottom:20px}
-.header{background:#FF5722;color:white;text-align:center;padding:25px 15px 20px}
-.header h1{font-size:30px}
-.header p{font-size:14px;opacity:0.9;margin-top:5px}
-.menu{padding:15px;display:flex;flex-direction:column;gap:14px}
-.card{background:white;border-radius:14px;padding:16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
-.card-left{text-align:left}
-.card-left h3{font-size:20px;color:#111}
-.card-left p{font-size:15px;color:#777;margin-top:4px}
-.price{color:#FF5722;font-weight:bold;font-size:20px;white-space:nowrap;margin-left:10px}
-.wa-btn{background:#22C55E;color:white;text-align:center;margin:20px 15px 10px;padding:18px;border-radius:14px;text-decoration:none;display:block;font-size:22px;font-weight:bold;line-height:1.4}
-.footer{text-align:center;color:#999;font-size:13px;margin-top:15px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,sans-serif}
+body{background:#fff7ed;padding-bottom:90px}
+.top{background:#ea580c;color:white;text-align:center;padding:8px;font-size:14px}
+header{background:white;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:900;color:#ea580c}.logo span{color:#111}
+.call{background:#ea580c;color:white;padding:10px 18px;border-radius:30px;text-decoration:none;font-weight:bold}
+.hero{background:linear-gradient(135deg,#ea580c,#f97316);color:white;padding:35px 20px;text-align:center}
+.hero h1{font-size:30px;line-height:1.3}
+.search-box{background:white;padding:8px;border-radius:30px;display:flex;max-width:500px;margin:20px auto}
+.search-box input{flex:1;border:none;outline:none;padding:10px;font-size:16px}
+.search-box button{background:#111;color:white;border:none;padding:10px 20px;border-radius:25px}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:15px}
+.btn{background:white;color:#ea580c;padding:12px 20px;border-radius:30px;text-decoration:none;font-weight:bold}
+.btn-green{background:#25D366;color:white}
+.cat{padding:20px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pills span{background:white;border:1px solid #ddd;padding:8px 14px;border-radius:20px;font-size:14px;cursor:pointer}
+.med{background:white;padding:15px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.price{color:#ea580c;font-weight:bold;font-size:18px}
+.add{background:#ea580c;color:white;border:none;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+.qtyBtn{background:#eee;border:none;width:28px;height:28px;border-radius:50%;font-weight:bold;cursor:pointer}
+.cartBtn{position:fixed;bottom:20px;left:20px;right:20px;background:#111;color:white;padding:15px;border-radius:15px;display:none;justify-content:space-between;align-items:center;z-index:20;cursor:pointer}
+.cartBox{display:none;position:fixed;bottom:0;left:0;right:0;background:white;padding:20px;border-radius:20px 20px 0 0;max-height:80vh;overflow:auto;z-index:30;box-shadow:0 -5px 20px rgba(0,0,0,0.2)}
+.cartItem{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #eee}
+.checkout{background:#25D366;color:white;border:none;width:100%;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;margin-top:15px;cursor:pointer}
+.closeBtn{background:#eee;border:none;padding:8px 15px;border-radius:20px;margin-top:10px;width:100%}
+footer{background:white;padding:20px;text-align:center;font-size:13px;color:#666}
 </style>
 </head>
 <body>
+<div class="top">🍔 বাউফলে ৩০ মিনিটে গরম খাবার ডেলিভারি</div>
+<header><div class="logo">Food <span>Corner</span></div><a class="call" href="tel:01797077542">📞 কল করুন</a></header>
+<div class="hero">
+<h1>ক্ষুধা লাগছে?<br>গরম খাবার অর্ডার করুন</h1>
+<p>বাউফলের সেরা বার্গার, পিজ্জা ও বিরিয়ানি</p>
+<div class="search-box"><input id="searchInput" oninput="searchFood()" placeholder="খাবারের নাম লিখুন... যেমন: Burger"><button onclick="searchFood()">খুঁজুন</button></div>
+<div class="btns">
+<a class="btn btn-green" href="https://wa.me/8801797077542?text=আসসালামু আলাইকুম, খাবার অর্ডার করতে চাই">📱 WhatsApp এ অর্ডার</a>
+<a class="btn" href="tel:01797077542">📞 01797-077542</a>
+</div>
+</div>
+<div class="cat">
+<h2 style="margin-bottom:12px">ক্যাটাগরি</h2>
+<div class="pills"><span onclick="showFoods('all')">সব খাবার</span><span onclick="showFoods('burger')">🍔 বার্গার</span><span onclick="showFoods('pizza')">🍕 পিজ্জা</span><span onclick="showFoods('biryani')">🍚 বিরিয়ানি</span><span onclick="showFoods('drinks')">🥤 ড্রিংকস</span></div>
+<h2 id="foodTitle" style="margin:20px 0 12px">🍔 আমাদের মেনু</h2>
+<div id="foodList"></div>
+</div>
+<footer><b>Food Corner - Bauphal</b><br>WhatsApp: 01797-077542<br>সকাল ১০টা - রাত ১০টা খোলা</footer>
 
-<div class="header">
-<h1>🍔 Food Corner</h1>
-<p>Bauphal - মজার খাবার, কম দামে</p>
+<div class="cartBtn" id="cartBtn" onclick="openCart()"><span id="cartText">🛒 কার্ট দেখুন</span><span>➡️</span></div>
+<div class="cartBox" id="cartBox">
+<h2>🛒 আপনার কার্ট</h2>
+<div id="cartItems"></div>
+<h3 id="cartTotal" style="margin-top:15px"></h3>
+<button class="checkout" onclick="checkout()">✅ WhatsApp এ অর্ডার করুন</button>
+<button class="closeBtn" onclick="closeCart()">বন্ধ করুন</button>
 </div>
 
-<div class="menu">
-<div class="card"><div class="card-left"><h3>🍕 Chicken Pizza 8 inch</h3><p>Chicken Pizza 8 inch</p></div><div class="price">300 Taka</div></div>
-<div class="card"><div class="card-left"><h3>🥟 Momo</h3><p>Chicken Momo 6 pcs</p></div><div class="price">130 Taka</div></div>
-<div class="card"><div class="card-left"><h3>🫓 Ruti / Porota</h3><p>Gorom Ruti, Porota</p></div><div class="price">20 Taka</div></div>
-<div class="card"><div class="card-left"><h3>🫓 Nan Ruti</h3><p>Gorom Nan Ruti</p></div><div class="price">30 Taka</div></div>
-<div class="card"><div class="card-left"><h3>🫓 Tandul Ruti</h3><p>Tandul / Tandoori Ruti</p></div><div class="price">30 Taka</div></div>
-<div class="card"><div class="card-left"><h3>☕ Dudh Cha</h3><p>Special Dudh Cha</p></div><div class="price">20 Taka</div></div>
-<div class="card"><div class="card-left"><h3>☕ Coffee</h3><p>Hot Coffee</p></div><div class="price">50 Taka</div></div>
-</div>
-
-<a class="wa-btn" href="https://wa.me/8801797077542?text=ভাই, আমার এরকম একটা ওয়েবসাইট লাগবে" target="_blank">এরকম ওয়েবসাইট বানাতে চাইলে<br>WhatsApp করো</a>
-
-<div class="footer">Demo Website - Made by Tamim | Bauphal, Barisal</div>
-
+<script>
+var foods=[
+{name:"Chicken Burger",cat:"burger",price:120,desc:"ক্রিস্পি চিকেন + সস + সালাদ"},
+{name:"Beef Burger",cat:"burger",price:160,desc:"বিফ প্যাটি + চিজ"},
+{name:"Zinger Burger",cat:"burger",price:180,desc:"স্পাইসি জিঙ্গার"},
+{name:"Chicken Pizza 8 inch",cat:"pizza",price:350,desc:"চিকেন + চিজ + ক্যাপসিকাম"},
+{name:"Beef Pizza 10 inch",cat:"pizza",price:550,desc:"বিফ + ডাবল চিজ"},
+{name:"Chicken Biryani",cat:"biryani",price:180,desc:"বাসমতি চাল + চিকেন + ডিম"},
+{name:"Beef Biryani",cat:"biryani",price:220,desc:"বিফ বিরিয়ানি + সালাদ"},
+{name:"Fried Rice + Chicken Fry",cat:"biryani",price:200,desc:"ফ্রাইড রাইস কম্বো"},
+{name:"Coca Cola 500ml",cat:"drinks",price:60,desc:"ঠান্ডা কোক"},
+{name:"Lassi / Borhani",cat:"drinks",price:80,desc:"স্পেশাল লাচ্ছি"}
+];
+var cart={};
+function renderFoods(list){
+var html="";
+list.forEach(function(m){
+var qty=cart[m.name]||0;
+var btn=qty==0?'<button class="add" onclick="addToCart(\''+m.name+'\')">+ Add</button>':'<div><button class="qtyBtn" onclick="changeQty(\''+m.name+'\',-1)">-</button> '+qty+' <button class="qtyBtn" onclick="changeQty(\''+m.name+'\',1)">+</button></div>';
+html+='<div class="med"><div><b>'+m.name+'</b><br><small>'+m.desc+'</small><br><span class="price">৳'+m.price+'</span></div>'+btn+'</div>';
+});
+document.getElementById('foodList').innerHTML=html;
+}
+function showFoods(type){
+var list=foods; var title="🍔 আমাদের মেনু";
+if(type=='burger'){list=foods.filter(function(m){return m.cat=='burger'}); title="🍔 বার্গার মেনু";}
+if(type=='pizza'){list=foods.filter(function(m){return m.cat=='pizza'}); title="🍕 পিজ্জা মেনু";}
+if(type=='biryani'){list=foods.filter(function(m){return m.cat=='biryani'}); title="🍚 বিরিয়ানি / রাইস";}
+if(type=='drinks'){list=foods.filter(function(m){return m.cat=='drinks'}); title="🥤 ড্রিংকস";}
+document.getElementById('foodTitle').innerText=title;
+renderFoods(list);
+}
+function searchFood(){
+var q=document.getElementById('searchInput').value.toLowerCase();
+document.getElementById('foodTitle').innerText="🔍 খোঁজার ফলাফল: "+q;
+var list=foods.filter(function(m){return m.name.toLowerCase().indexOf(q)!==-1;});
+if(list.length==0){document.getElementById('foodList').innerHTML="<p>এই খাবারটি পাওয়া যায়নি। WhatsApp এ মেসেজ করুন।</p>";}
+else{renderFoods(list);}
+}
+function addToCart(name){cart[name]=(cart[name]||0)+1;updateCart();renderFoods(foods);}
+function changeQty(name,delta){cart[name]=(cart[name]||0)+delta;if(cart[name]<=0) delete cart[name];updateCart();renderFoods(foods);}
+function updateCart(){
+var count=0,total=0;
+for(var k in cart){var m=foods.find(function(x){return x.name==k});count+=cart[k];total+=m.price*cart[k];}
+var btn=document.getElementById('cartBtn');
+if(count>0){btn.style.display='flex';document.getElementById('cartText').innerText='🛒 কার্ট দেখুন ('+count+' টি) - ৳'+total;}
+else{btn.style.display='none';}
+}
+function openCart(){
+var html="";var total=0;
+for(var k in cart){var m=foods.find(function(x){return x.name==k});total+=m.price*cart[k];html+='<div class="cartItem"><div><b>'+k+'</b><br>৳'+m.price+' x '+cart[k]+' = ৳'+(m.price*cart[k])+'</div><div><button class="qtyBtn" onclick="changeQty(\''+k+'\',-1);openCart()">-</button> '+cart[k]+' <button class="qtyBtn" onclick="changeQty(\''+k+'\',1);openCart()">+</button></div></div>';}
+if(html=="") html="<p>কার্ট খালি। আগে কিছু Add করুন।</p>";
+document.getElementById('cartItems').innerHTML=html;
+document.getElementById('cartTotal').innerText='মোট: ৳'+total;
+document.getElementById('cartBox').style.display='block';
+}
+function closeCart(){document.getElementById('cartBox').style.display='none';}
+function checkout(){
+var msg="আসসালামু আলাইকুম, খাবার অর্ডার করতে চাই:\n\n";var total=0;
+for(var k in cart){var m=foods.find(function(x){return x.name==k});msg+="- "+k+" x "+cart[k]+" = ৳"+(m.price*cart[k])+"\n";total+=m.price*cart[k];}
+msg+="\nমোট: ৳"+total+"\nঠিকানা: ";
+window.open("https://wa.me/8801797077542?text="+encodeURIComponent(msg));
+}
+renderFoods(foods);
+</script>
 </body>
 </html>
